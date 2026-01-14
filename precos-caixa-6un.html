@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela de Preços - Caixa 6 Unidades | Happy Hour</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b35;
+            --primary-dark: #e55a2b;
+            --secondary: #2d3748;
+            --accent: #48bb78;
+            --bg-gradient-start: #1a1a2e;
+            --bg-gradient-end: #16213e;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --hh-color: #ff6b35;
+            --liso-color: #4299e1;
+            --pers-color: #9f7aea;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            padding: 2rem;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.03) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(10%, 10%) scale(1.1);
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, #ffd93d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent) 0%, #38a169 100%);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+        }
+
+        /* Price Cards Container */
+        .price-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .price-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--card-accent), transparent);
+        }
+
+        .price-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--card-accent);
+        }
+
+        .price-card.hh {
+            --card-accent: var(--hh-color);
+        }
+
+        .price-card.liso {
+            --card-accent: var(--liso-color);
+        }
+
+        .price-card.pers {
+            --card-accent: var(--pers-color);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .price-card.hh .card-icon {
+            background: linear-gradient(135deg, var(--hh-color) 0%, #ff8c5a 100%);
+        }
+
+        .price-card.liso .card-icon {
+            background: linear-gradient(135deg, var(--liso-color) 0%, #63b3ed 100%);
+        }
+
+        .price-card.pers .card-icon {
+            background: linear-gradient(135deg, var(--pers-color) 0%, #b794f4 100%);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--card-accent);
+        }
+
+        .card-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Price Table */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .price-table th,
+        .price-table td {
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+        }
+
+        .price-table th {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .price-table td {
+            font-size: 0.9rem;
+        }
+
+        .price-table tr:not(:last-child) td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .qty-cell {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .price-cell {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Full Table Section */
+        .full-table-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .full-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .full-table th {
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .full-table th:first-child {
+            border-radius: 12px 0 0 12px;
+        }
+
+        .full-table th:last-child {
+            border-radius: 0 12px 12px 0;
+        }
+
+        .full-table th.hh-header {
+            color: var(--hh-color);
+        }
+
+        .full-table th.liso-header {
+            color: var(--liso-color);
+        }
+
+        .full-table th.pers-header {
+            color: var(--pers-color);
+        }
+
+        .full-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .full-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        .full-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .full-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .qty-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(255, 107, 53, 0.1) 100%);
+            border-radius: 10px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .price-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .price-value.hh-price {
+            color: var(--hh-color);
+        }
+
+        .price-value.liso-price {
+            color: var(--liso-color);
+        }
+
+        .price-value.pers-price {
+            color: var(--pers-color);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .price-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .price-card {
+                padding: 1.5rem;
+            }
+
+            .full-table-section {
+                padding: 1rem;
+                overflow-x: auto;
+            }
+
+            .full-table {
+                min-width: 400px;
+            }
+        }
+
+        /* Discount highlight for 5+ */
+        .best-price {
+            position: relative;
+        }
+
+        .best-price::after {
+            content: '🔥';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🍺</div>
+            <h1>Happy Hour</h1>
+            <p class="subtitle">Tabela de Preços - Caixa de 6 Unidades</p>
+            <span class="badge">✓ Preços com Comissão para Vendedores</span>
+        </header>
+
+        <!-- Price Cards -->
+        <div class="price-cards">
+            <!-- HH Card -->
+            <div class="price-card hh">
+                <div class="card-icon">🍻</div>
+                <h3 class="card-title">Happy Hour</h3>
+                <p class="card-description">Modelo clássico</p>
+                <table class="price-table">
+                    <thead>
+                        <tr>
+                            <th>Qtd</th>
+                            <th>Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="qty-cell">1-2</td>
+                            <td class="price-cell">R$ 32,00</td>
+                        </tr>
+                        <tr>
+                            <td class="qty-cell">3-4</td>
+                            <td class="price-cell">R$ 31,00</td>
+                        </tr>
+                        <tr>
+                            <td class="qty-cell">5+</td>
+                            <td class="price-cell">R$ 30,00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Liso Card -->
+            <div class="price-card liso">
+                <div class="card-icon">🥤</div>
+                <h3 class="card-title">Liso</h3>
+                <p class="card-description">Modelo sem estampa</p>
+                <table class="price-table">
+                    <thead>
+                        <tr>
+                            <th>Qtd</th>
+                            <th>Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="qty-cell">1-2</td>
+                            <td class="price-cell">R$ 34,00</td>
+                        </tr>
+                        <tr>
+                            <td class="qty-cell">3-4</td>
+                            <td class="price-cell">R$ 33,00</td>
+                        </tr>
+                        <tr>
+                            <td class="qty-cell">5+</td>
+                            <td class="price-cell">R$ 32,00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Personalizado Card -->
+            <div class="price-card pers">
+                <div class="card-icon">🎨</div>
+                <h3 class="card-title">Personalizado</h3>
+                <p class="card-description">Com arte exclusiva</p>
+                <table class="price-table">
+                    <thead>
+                        <tr>
+                            <th>Qtd</th>
+                            <th>Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="qty-cell">1-2</td>
+                            <td class="price-cell">R$ 44,00</td>
+                        </tr>
+                        <tr>
+                            <td class="qty-cell">3-4</td>
+                            <td class="price-cell">R$ 42,00</td>
+                        </tr>
+                        <tr>
+                            <td class="qty-cell">5+</td>
+                            <td class="price-cell">R$ 40,00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Full Table -->
+        <div class="full-table-section">
+            <h2 class="section-title">
+                📊 Tabela Completa
+            </h2>
+            <p class="section-subtitle">Preços por unidade da caixa de 6 unidades com comissão incluída</p>
+
+            <table class="full-table">
+                <thead>
+                    <tr>
+                        <th>Quantidade</th>
+                        <th class="hh-header">HH</th>
+                        <th class="liso-header">Liso</th>
+                        <th class="pers-header">Personalizado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="qty-badge">1</span></td>
+                        <td><span class="price-value hh-price">R$ 32,00</span></td>
+                        <td><span class="price-value liso-price">R$ 34,00</span></td>
+                        <td><span class="price-value pers-price">R$ 44,00</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="qty-badge">2</span></td>
+                        <td><span class="price-value hh-price">R$ 32,00</span></td>
+                        <td><span class="price-value liso-price">R$ 34,00</span></td>
+                        <td><span class="price-value pers-price">R$ 44,00</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="qty-badge">3</span></td>
+                        <td><span class="price-value hh-price">R$ 31,00</span></td>
+                        <td><span class="price-value liso-price">R$ 33,00</span></td>
+                        <td><span class="price-value pers-price">R$ 42,00</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="qty-badge">4</span></td>
+                        <td><span class="price-value hh-price">R$ 31,00</span></td>
+                        <td><span class="price-value liso-price">R$ 33,00</span></td>
+                        <td><span class="price-value pers-price">R$ 42,00</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="qty-badge">5+</span></td>
+                        <td><span class="price-value hh-price">R$ 30,00</span></td>
+                        <td><span class="price-value liso-price">R$ 32,00</span></td>
+                        <td><span class="price-value pers-price">R$ 40,00</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            <p>Preços válidos para <span class="highlight">Caixa de 6 Unidades</span></p>
+            <p>Valores incluem comissão do vendedor</p>
+            <p style="margin-top: 1rem; opacity: 0.6;">Happy Hour © 2024</p>
+        </footer>
+    </div>
+</body>
+
+</html>
